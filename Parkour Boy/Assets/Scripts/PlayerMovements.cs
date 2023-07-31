@@ -10,6 +10,7 @@ public class PlayerMovements : MonoBehaviour
     [SerializeField] Transform groundCheck;
     [SerializeField] LayerMask ground;
     [SerializeField] AudioSource jumpSound;
+    Animator animator;
     public static bool IsJumping = false;
     //public static bool IsJumping = false;
 
@@ -20,6 +21,7 @@ public class PlayerMovements : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        animator=GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody>();
         mainCameraTransform = Camera.main.transform; // Get the main camera's transform
     }
@@ -41,9 +43,9 @@ public class PlayerMovements : MonoBehaviour
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
             Jump();
-            IsJumping = true;
+            animator.SetBool("Jump",true);
         }else{
-            IsJumping = false;
+            animator.SetBool("Jump",false);
         }
         
     }
@@ -65,9 +67,13 @@ public class PlayerMovements : MonoBehaviour
         return Physics.CheckSphere(groundCheck.position, .1f, ground);
     }
 
-    public bool IsWalking(){
+    void IsWalking(){
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
-        return horizontalInput != 0 || verticalInput !=0;
+        if(horizontalInput != 0 || verticalInput !=0){
+            animator.SetBool("Running",true);
+        }else{
+            animator.SetBool("Running",false);
+        }
     }
 }

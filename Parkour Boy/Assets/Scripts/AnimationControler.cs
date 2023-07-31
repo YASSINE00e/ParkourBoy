@@ -5,7 +5,7 @@ using UnityEngine;
 public class AnimationControler : MonoBehaviour
 {
 
-    [SerializeField] PlayerMovements PlayerMovements;
+    //[SerializeField] PlayerMovements PlayerMovements;
     [SerializeField] PlayerLife PlayerLife;
     [SerializeField] JumpPad JumpPad;
     Animator animator;
@@ -18,6 +18,7 @@ public class AnimationControler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
         if(PlayerMovements.IsWalking()){
             animator.SetBool("Running",true);
         }
@@ -31,6 +32,7 @@ public class AnimationControler : MonoBehaviour
         else{
             animator.SetBool("Jump",false);
         }
+        */
 
         if(PlayerLife.dieAnimation1){
             animator.SetTrigger("Die1");
