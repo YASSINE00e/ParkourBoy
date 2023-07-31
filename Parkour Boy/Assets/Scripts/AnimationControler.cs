@@ -25,12 +25,13 @@ public class AnimationControler : MonoBehaviour
             animator.SetBool("Running",false);
         }
         
-        if(PlayerMovements.IsJumping()){
-            animator.SetBool("jump",true);
+        if(PlayerMovements.IsJumping){
+            animator.SetBool("Jump",true);
         }
         else{
-            animator.SetBool("jump",false);
+            animator.SetBool("Jump",false);
         }
+
         if(PlayerLife.dieAnimation1){
             animator.SetTrigger("Die1");
             PlayerLife.dieAnimation1=false;
@@ -45,12 +46,13 @@ public class AnimationControler : MonoBehaviour
             animator.ResetTrigger("Die2");
         }
 
+        /*
         if(JumpPad.bounce){
             animator.SetBool("Bounce",true);
         }else{
             animator.SetBool("Bounce",false);
         }
-        
+        */
 
         
     }

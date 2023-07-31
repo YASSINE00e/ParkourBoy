@@ -10,6 +10,8 @@ public class PlayerMovements : MonoBehaviour
     [SerializeField] Transform groundCheck;
     [SerializeField] LayerMask ground;
     [SerializeField] AudioSource jumpSound;
+    public static bool IsJumping = false;
+    //public static bool IsJumping = false;
 
     private Transform mainCameraTransform; // Reference to the main camera's transform
 
@@ -39,8 +41,11 @@ public class PlayerMovements : MonoBehaviour
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
             Jump();
+            IsJumping = true;
+        }else{
+            IsJumping = false;
         }
-        IsJumping();
+        
     }
 
     void Jump(){
@@ -64,14 +69,5 @@ public class PlayerMovements : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
         return horizontalInput != 0 || verticalInput !=0;
-    }
-    public bool IsJumping(){
-        if (Input.GetButtonDown("Jump") && IsGrounded())
-        {
-            return true;
-        }
-        else{
-            return false;
-        }
     }
 }
