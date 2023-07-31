@@ -13,7 +13,12 @@ public class PlayerMovements : MonoBehaviour
     Animator animator;
     public static bool IsJumping = false;
     //public static bool IsJumping = false;
-
+    
+/*
+    public bool unlimited;
+    public bool restricted;
+    public bool freeze;
+*/
     private Transform mainCameraTransform; // Reference to the main camera's transform
 
     // Start is called before the first frame update
