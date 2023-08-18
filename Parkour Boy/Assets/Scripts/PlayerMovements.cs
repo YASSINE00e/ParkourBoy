@@ -4,23 +4,38 @@ using UnityEngine;
 
 public class PlayerMovements : MonoBehaviour
 {
+
+    [Header("Movement")]
+    [SerializeField] float moveSpeed = 7f;
+    float horizontalInput;
+    float verticalInput;
+    Vector3 movementDirection;
     Rigidbody rb;
-    [SerializeField] float movementSpeed = 5f;
-    [SerializeField] float jumpForce = 5f;
-    [SerializeField] Transform groundCheck;
+    [SerializeField] float groudDrag = 10f;
+    [SerializeField] Transform orientation;
+
+    [Header("Ground Check")]
     [SerializeField] LayerMask ground;
+    bool grounded;
+    
+    
+    
+
+    [Header("Jump")]
+    [SerializeField] float jumpForce = 15f;
+    [SerializeField] float jumpCooldown = 0.25f;
+    [SerializeField] float airMultiplier = 0.4f;
+    bool readyToJump;
+    
+    [SerializeField] Transform groundCheck;
+    
     [SerializeField] AudioSource jumpSound;
     Animator animator;
-    public static bool IsJumping = false;
-    //public static bool IsJumping = false;
-    
-/*
-    public bool unlimited;
-    public bool restricted;
-    public bool freeze;
-*/
-    private Transform mainCameraTransform; // Reference to the main camera's transform
 
+    [Header("Keybinds")]
+    KeyCode jumpKey = KeyCode.Space;
+    
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -28,57 +43,91 @@ public class PlayerMovements : MonoBehaviour
         Cursor.visible = false;
         animator=GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody>();
-        mainCameraTransform = Camera.main.transform; // Get the main camera's transform
+        readyToJump = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
-        IsWalking();
-        // Calculate movement direction relative to the camera's forward direction
-        Vector3 cameraForward = mainCameraTransform.forward;
-        cameraForward.y = 0f; // Ensure the cameraForward vector is horizontal (no vertical component)
-        Vector3 movementDirection = cameraForward.normalized * verticalInput + mainCameraTransform.right * horizontalInput;
-        movementDirection.y = 0f; // Ensure no vertical movement
+        // ground check
+        grounded = Physics.CheckSphere(groundCheck.position, .1f, ground);
 
-        rb.velocity = movementDirection * movementSpeed + new Vector3(0f, rb.velocity.y, 0f);
+        MyInput();
+        SpeedControl();
 
-        if (Input.GetButtonDown("Jump") && IsGrounded())
-        {
-            Jump();
-            animator.SetBool("Jump",true);
+        // handle drag
+        if(grounded){
+            rb.drag = groudDrag;
         }else{
-            animator.SetBool("Jump",false);
+            rb.drag = 0f;
+        }
+    }
+    private void FixedUpdate() {
+        MovePlayer();
+    }
+
+    void MyInput(){
+        horizontalInput = Input.GetAxisRaw("Horizontal");
+        verticalInput = Input.GetAxisRaw("Vertical");
+        if(horizontalInput != 0 || verticalInput !=0){
+            animator.SetBool("Running",true);
+        }else{
+            animator.SetBool("Running",false);
         }
         
+        // when to jump
+        if(Input.GetKey(jumpKey) && readyToJump && grounded){
+            readyToJump = false;
+            Jump();
+            Invoke(nameof(ResetJump),jumpCooldown);
+        
+            animator.SetBool("Jump",true);
+        }
+        else{
+            animator.SetBool("Jump",false);
+        }
+    }
+
+    void MovePlayer(){
+
+        //calculate movement direction
+        movementDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+
+        // on ground
+        if(grounded)
+            rb.AddForce(movementDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+        // in air
+        else if(!grounded)
+            rb.AddForce(movementDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
+
+    }
+
+    void SpeedControl(){
+        Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+        // limit velocity if needed
+        if(flatVel.magnitude > moveSpeed){
+            Vector3 limitedVel = flatVel.normalized * moveSpeed;
+            rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
+        }
     }
 
     void Jump(){
-        rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
+        // reset y velocity
+        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+        rb.AddForce(transform.up * jumpForce,ForceMode.Impulse);
         jumpSound.Play();
         
     }
-    private void OnCollisionEnter(Collision collision) {
+
+    void ResetJump(){
+        readyToJump = true;
+    }
+
+    void OnCollisionEnter(Collision collision) {
         if(collision.gameObject.CompareTag("Enemy Head")){
             Destroy(collision.transform.parent.gameObject);
             Jump();
         }
     }
 
-    bool IsGrounded()
-    {
-        return Physics.CheckSphere(groundCheck.position, .1f, ground);
-    }
-
-    void IsWalking(){
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
-        if(horizontalInput != 0 || verticalInput !=0){
-            animator.SetBool("Running",true);
-        }else{
-            animator.SetBool("Running",false);
-        }
-    }
 }

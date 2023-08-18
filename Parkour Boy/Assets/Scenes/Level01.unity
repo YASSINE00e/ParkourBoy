@@ -1621,17 +1621,53 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2343508539463190999, guid: 8367f85c62933a84eb7cca0658694b3e, type: 3}
+      propertyPath: m_Interpolate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343508539463190999, guid: 8367f85c62933a84eb7cca0658694b3e, type: 3}
       propertyPath: m_IsKinematic
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343508539463190999, guid: 8367f85c62933a84eb7cca0658694b3e, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2343508539463191001, guid: 8367f85c62933a84eb7cca0658694b3e, type: 3}
       propertyPath: enimie
       value: 
       objectReference: {fileID: 2085058329}
     - target: {fileID: 2343508539463191001, guid: 8367f85c62933a84eb7cca0658694b3e, type: 3}
+      propertyPath: groudDrag
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343508539463191001, guid: 8367f85c62933a84eb7cca0658694b3e, type: 3}
+      propertyPath: jumpForce
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343508539463191001, guid: 8367f85c62933a84eb7cca0658694b3e, type: 3}
+      propertyPath: moveSpeed
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343508539463191001, guid: 8367f85c62933a84eb7cca0658694b3e, type: 3}
       propertyPath: groundCheck
       value: 
       objectReference: {fileID: 1620744625}
+    - target: {fileID: 2343508539463191001, guid: 8367f85c62933a84eb7cca0658694b3e, type: 3}
+      propertyPath: orientation
+      value: 
+      objectReference: {fileID: 1351478941}
+    - target: {fileID: 2343508539463191001, guid: 8367f85c62933a84eb7cca0658694b3e, type: 3}
+      propertyPath: jumpCooldown
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343508539463191001, guid: 8367f85c62933a84eb7cca0658694b3e, type: 3}
+      propertyPath: playerHeight
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343508539463191001, guid: 8367f85c62933a84eb7cca0658694b3e, type: 3}
+      propertyPath: airMultiplier
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 2343508539770237205, guid: 8367f85c62933a84eb7cca0658694b3e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1671,6 +1707,10 @@ PrefabInstance:
     - target: {fileID: 4454526865306679364, guid: 8367f85c62933a84eb7cca0658694b3e, type: 3}
       propertyPath: m_Height
       value: 1.7789085
+      objectReference: {fileID: 0}
+    - target: {fileID: 4454526865306679364, guid: 8367f85c62933a84eb7cca0658694b3e, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4454526865306679364, guid: 8367f85c62933a84eb7cca0658694b3e, type: 3}
       propertyPath: m_Center.y
