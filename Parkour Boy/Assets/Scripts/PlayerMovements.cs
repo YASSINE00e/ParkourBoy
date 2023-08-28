@@ -11,7 +11,7 @@ public class PlayerMovements : MonoBehaviour
     float verticalInput;
     Vector3 movementDirection;
     Rigidbody rb;
-    [SerializeField] float groudDrag = 10f;
+    [SerializeField] float groudDrag = 12f;
     [SerializeField] Transform orientation;
 
     [Header("Ground Check")]
@@ -79,13 +79,13 @@ public class PlayerMovements : MonoBehaviour
         if(Input.GetKey(jumpKey) && readyToJump && grounded){
             readyToJump = false;
             Jump();
-            Invoke(nameof(ResetJump),jumpCooldown);
+            Invoke(nameof(ResetJump),jumpCooldown);}
         
-            animator.SetBool("Jump",true);
+        /*    animator.SetBool("Jump",true);
         }
         else{
             animator.SetBool("Jump",false);
-        }
+        }*/
     }
 
     void MovePlayer(){
