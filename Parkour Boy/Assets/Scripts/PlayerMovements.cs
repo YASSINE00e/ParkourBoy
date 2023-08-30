@@ -6,7 +6,10 @@ public class PlayerMovements : MonoBehaviour
 {
 
     [Header("Movement")]
-    [SerializeField] float moveSpeed = 7f;
+    float moveSpeed = 7f;
+    [SerializeField] float walkSpeed;
+    [SerializeField] float sprintSpeed;
+    [SerializeField] float wallRunSpeed;
     float horizontalInput;
     float verticalInput;
     Vector3 movementDirection;
@@ -33,7 +36,19 @@ public class PlayerMovements : MonoBehaviour
     Animator animator;
 
     [Header("Keybinds")]
-    KeyCode jumpKey = KeyCode.Space;
+    [SerializeField] KeyCode jumpKey = KeyCode.Space;
+    [SerializeField] KeyCode sprintKey = KeyCode.LeftShift;
+
+    [SerializeField] MovementState state;
+
+    public enum MovementState{
+        walking,
+        sprinting,
+        wallrunning,
+        air
+    }
+
+    public bool wallrunning;
     
     
     // Start is called before the first frame update
@@ -54,6 +69,7 @@ public class PlayerMovements : MonoBehaviour
 
         MyInput();
         SpeedControl();
+        StateHandler();
 
         // handle drag
         if(grounded){
@@ -70,9 +86,9 @@ public class PlayerMovements : MonoBehaviour
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
         if(horizontalInput != 0 || verticalInput !=0){
-            animator.SetBool("Running",true);
+            animator.SetBool("Walking",true);
         }else{
-            animator.SetBool("Running",false);
+            animator.SetBool("Walking",false);
         }
         
         // when to jump
@@ -88,6 +104,27 @@ public class PlayerMovements : MonoBehaviour
         }*/
     }
 
+    void StateHandler(){
+        //Mode - WallRunning
+        if(wallrunning){
+            state = MovementState.wallrunning;
+            moveSpeed = wallRunSpeed;
+        }
+
+        //Mode - sprinting 
+        if(grounded && Input.GetKey(sprintKey)){
+            state = MovementState.sprinting;
+            moveSpeed = sprintSpeed;
+        }
+        //Mode - Walking 
+        else if(grounded){
+            state = MovementState.walking;
+            moveSpeed = walkSpeed;
+        }
+        else{
+            state = MovementState.air;
+        }
+    }
     void MovePlayer(){
 
         //calculate movement direction

@@ -72,6 +72,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2343508539463190994}
   - component: {fileID: 2343508539463191001}
+  - component: {fileID: 4380177530791363552}
   - component: {fileID: 2343508539463190998}
   - component: {fileID: 2343508539463190999}
   - component: {fileID: 2343508539463190996}
@@ -113,7 +114,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90e4da60d6e11e5499b94b6ea871eedf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 7
+  walkSpeed: 7
+  sprintSpeed: 12
+  wallRunSpeed: 9
   groudDrag: 12
   orientation: {fileID: 2343508539770237205}
   ground:
@@ -124,6 +127,34 @@ MonoBehaviour:
   airMultiplier: 0.4
   groundCheck: {fileID: 2343508538958310259}
   jumpSound: {fileID: 2343508539463190996}
+  jumpKey: 32
+  sprintKey: 304
+  state: 0
+  wallrunning: 0
+--- !u!114 &4380177530791363552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2343508539859816141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b36edf3ff7cfdf34d8c9d2e300e752f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wall:
+    serializedVersion: 2
+    m_Bits: 128
+  ground:
+    serializedVersion: 2
+    m_Bits: 64
+  wallRunForce: 200
+  maxWallRunTime: 1.5
+  wallRunTimer: 0
+  wallCheckDistance: 0.7
+  minJumpHit: 2
+  orientation: {fileID: 2343508539770237205}
 --- !u!114 &2343508539463190998
 MonoBehaviour:
   m_ObjectHideFlags: 0
