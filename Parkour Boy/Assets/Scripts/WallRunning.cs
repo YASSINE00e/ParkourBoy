@@ -9,11 +9,16 @@ public class WallRunning : MonoBehaviour
     [SerializeField] LayerMask ground;
     [SerializeField] float wallJumpUpForce;
     [SerializeField] float wallJumpSideForce;
+    [SerializeField] float wallClimbSpeed;
     [SerializeField] float wallRunForce;
     [SerializeField] float maxWallRunTime;
     float wallRunTimer;
 
     [Header("Inputs")]
+    [SerializeField] KeyCode upwardsRunKey = KeyCode.LeftShift;
+    [SerializeField] KeyCode downwardsRunKey = KeyCode.LeftControl;
+    bool upwardsRunning;
+    bool downwardsRunning;
     float horizontalInput;
     float verticalInput;
 
@@ -71,6 +76,10 @@ public class WallRunning : MonoBehaviour
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
+        upwardsRunning = Input.GetKey(upwardsRunKey);
+        downwardsRunning = Input.GetKey(downwardsRunKey);
+
+
         //State 1 WallRunning
         if((wallLeft || wallRight) && verticalInput > 0 && AboveGround() && !exitingWall){
             if(!pm.wallrunning){
@@ -115,6 +124,14 @@ public class WallRunning : MonoBehaviour
         }
         //froward froce
         rb.AddForce(wallForward * wallRunForce, ForceMode.Force);
+
+        //upwards/downwards force
+        if(upwardsRunning){
+            rb.velocity = new Vector3(rb.velocity.x, wallClimbSpeed, rb.velocity.z);
+        }
+        if(downwardsRunning){
+            rb.velocity = new Vector3(rb.velocity.x, -wallClimbSpeed, rb.velocity.z);
+        }
 
         //push to wall force
         if(!(wallLeft && horizontalInput > 0) && !(wallRight && verticalInput < 0)){

@@ -149,11 +149,17 @@ MonoBehaviour:
   ground:
     serializedVersion: 2
     m_Bits: 64
+  wallJumpUpForce: 7
+  wallJumpSideForce: 12
+  wallClimbSpeed: 3
   wallRunForce: 200
   maxWallRunTime: 1.5
-  wallRunTimer: 0
+  upwardsRunKey: 304
+  downwardsRunKey: 306
+  jumpKey: 32
   wallCheckDistance: 0.7
   minJumpHit: 2
+  exitWallTime: 0
   orientation: {fileID: 2343508539770237205}
 --- !u!114 &2343508539463190998
 MonoBehaviour:
