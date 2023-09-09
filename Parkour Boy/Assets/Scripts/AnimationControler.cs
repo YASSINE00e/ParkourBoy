@@ -7,8 +7,11 @@ public class AnimationControler : MonoBehaviour
 
     //[SerializeField] PlayerMovements PlayerMovements;
     [SerializeField] PlayerLife PlayerLife;
+    [SerializeField] WallRunning WallRunning;
     [SerializeField] JumpPad JumpPad;
+    [SerializeField] PlayerMovements pm;
     Animator animator;
+    KeyCode jumpKey = KeyCode.Space;
     // Start is called before the first frame update
     void Start()
     {
@@ -46,6 +49,24 @@ public class AnimationControler : MonoBehaviour
             PlayerLife.dieAnimation2=false;
         }else{
             animator.ResetTrigger("Die2");
+        }
+
+        if(WallRunning.wallLeft && pm.wallrunning){
+            animator.SetBool("WallRunL",true);
+        }else{
+            animator.SetBool("WallRunL",false);
+        }
+        
+        if(WallRunning.wallRight && pm.wallrunning){
+            animator.SetBool("WallRunL",true);
+        }else{
+            animator.SetBool("WallRunR",false);
+        }
+
+        if(pm.wallrunning && Input.GetKey(jumpKey)){
+            animator.SetBool("WallJump",true);
+        }else{
+            animator.SetBool("WallJump",false);
         }
 
         /*

@@ -29,6 +29,8 @@ public class PlayerMovements : MonoBehaviour
     [SerializeField] float jumpCooldown = 0.25f;
     [SerializeField] float airMultiplier = 0.4f;
     bool readyToJump;
+    bool walkBool;
+    bool jumpBool;
     
     [SerializeField] Transform groundCheck;
     
@@ -85,23 +87,25 @@ public class PlayerMovements : MonoBehaviour
     void MyInput(){
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
-        if(horizontalInput != 0 || verticalInput !=0){
-            animator.SetBool("Walking",true);
+        if(horizontalInput != 0 || verticalInput != 0){
+            walkBool = true;
         }else{
-            animator.SetBool("Walking",false);
+            walkBool = false;
         }
+        animator.SetBool("Walking",walkBool);
         
         // when to jump
         if(Input.GetKey(jumpKey) && readyToJump && grounded){
             readyToJump = false;
             Jump();
-            Invoke(nameof(ResetJump),jumpCooldown);}
+            Invoke(nameof(ResetJump),jumpCooldown);
         
-        /*    animator.SetBool("Jump",true);
-        }
+            jumpBool = true;}
+        
         else{
-            animator.SetBool("Jump",false);
-        }*/
+            jumpBool = false;
+        }
+        animator.SetBool("Jump",jumpBool);
     }
 
     void StateHandler(){
@@ -109,20 +113,25 @@ public class PlayerMovements : MonoBehaviour
         if(wallrunning){
             state = MovementState.wallrunning;
             moveSpeed = wallRunSpeed;
+            animator.SetBool("Running",false);
         }
-
+        
         //Mode - sprinting 
-        if(grounded && Input.GetKey(sprintKey)){
+        else if(grounded && Input.GetKey(sprintKey)){
             state = MovementState.sprinting;
             moveSpeed = sprintSpeed;
+            animator.SetBool("Running",true);
         }
+
         //Mode - Walking 
         else if(grounded){
             state = MovementState.walking;
             moveSpeed = walkSpeed;
+            animator.SetBool("Running",false);
         }
         else{
             state = MovementState.air;
+            animator.SetBool("Running",false);
         }
     }
     void MovePlayer(){
