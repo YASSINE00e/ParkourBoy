@@ -3186,11 +3186,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 0d3c605385d6d9547a1e3f24e8248962, type: 3}
---- !u!4 &960314993 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2330866156929896415, guid: 8367f85c62933a84eb7cca0658694b3e, type: 3}
-  m_PrefabInstance: {fileID: 1397120128}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -3326,7 +3321,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orientation: {fileID: 1477607183}
   player: {fileID: 972242286}
-  playerObj: {fileID: 960314993}
+  playerObj: {fileID: 1397120129}
   rotationSpeed: 7
 --- !u!114 &963194231
 MonoBehaviour:
@@ -4870,6 +4865,11 @@ PrefabInstance:
       objectReference: {fileID: 972242284}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8367f85c62933a84eb7cca0658694b3e, type: 3}
+--- !u!4 &1397120129 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7212130036104964050, guid: 8367f85c62933a84eb7cca0658694b3e, type: 3}
+  m_PrefabInstance: {fileID: 1397120128}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1425241757 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4045920869679372, guid: bc59902fe8272d54da1ae082ff755757, type: 3}
@@ -6142,7 +6142,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1782492446}
-  m_LocalRotation: {x: 0.20040122, y: -0.00000001941204, z: 0.0000000039707477, w: 0.9797139}
+  m_LocalRotation: {x: 0.20040122, y: -0.00000001884707, z: 0.0000000038551824, w: 0.9797139}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
