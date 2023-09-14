@@ -9,6 +9,7 @@ public class ThirdPersonCam : MonoBehaviour
     [SerializeField] Transform player;
     [SerializeField] Transform playerObj;
     [SerializeField] float rotationSpeed;
+    [SerializeField] FixedJoystick Joystick;
 
     private void Update()
     {
@@ -20,8 +21,10 @@ public class ThirdPersonCam : MonoBehaviour
 
         // roate player object
        
-            float horizontalInput = Input.GetAxis("Horizontal");
-            float verticalInput = Input.GetAxis("Vertical");
+            //float horizontalInput = Input.GetAxisRaw("Horizontal");
+            //float verticalInput = Input.GetAxisRaw("Vertical");
+            float horizontalInput = Joystick.Horizontal;
+            float verticalInput = Joystick.Vertical;
             Vector3 inputDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
             if (inputDir != Vector3.zero)

@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityStandardAssets.CrossPlatformInput;
 public class PlayerMovements : MonoBehaviour
 {
 
@@ -51,13 +51,15 @@ public class PlayerMovements : MonoBehaviour
     }
 
     public bool wallrunning;
+
+    [SerializeField] FixedJoystick Joystick;
     
     
     // Start is called before the first frame update
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
         animator=GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody>();
         readyToJump = true;
@@ -85,8 +87,12 @@ public class PlayerMovements : MonoBehaviour
     }
 
     void MyInput(){
-        horizontalInput = Input.GetAxisRaw("Horizontal");
-        verticalInput = Input.GetAxisRaw("Vertical");
+    
+        //horizontalInput = Input.GetAxisRaw("Horizontal");
+        //verticalInput = Input.GetAxisRaw("Vertical");
+
+        horizontalInput = Joystick.Horizontal;
+        verticalInput = Joystick.Vertical;
         if(horizontalInput != 0 || verticalInput != 0){
             walkBool = true;
         }else{
@@ -95,7 +101,8 @@ public class PlayerMovements : MonoBehaviour
         animator.SetBool("Walking",walkBool);
         
         // when to jump
-        if(Input.GetKey(jumpKey) && readyToJump && grounded){
+        //if(Input.GetKey(jumpKey) && readyToJump && grounded){
+        if(CrossPlatformInputManager.GetButtonDown("Jumpp") && readyToJump && grounded){
             readyToJump = false;
             Jump();
             Invoke(nameof(ResetJump),jumpCooldown);
@@ -117,7 +124,8 @@ public class PlayerMovements : MonoBehaviour
         }
         
         //Mode - sprinting 
-        else if(grounded && Input.GetKey(sprintKey)){
+        //else if(grounded && Input.GetKey(sprintKey)){
+        else if(grounded && CrossPlatformInputManager.GetButton("Run")){
             state = MovementState.sprinting;
             moveSpeed = sprintSpeed;
             animator.SetBool("Running",true);

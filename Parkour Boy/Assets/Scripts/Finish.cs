@@ -8,7 +8,7 @@ public class Finish : MonoBehaviour
 
     //[SerializeField] AudioSource finishSound;
    private void OnTriggerEnter(Collider other) {
-    if(other.gameObject.name=="Cool guy"){
+    if(other.gameObject.name=="Boy"){
         //finishSound.Play();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         UnlockedNewLevel();
