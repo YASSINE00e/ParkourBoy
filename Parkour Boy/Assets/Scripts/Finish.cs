@@ -15,7 +15,7 @@ public class Finish : MonoBehaviour
     [SerializeField] GameObject panel;
     float elapsedTime;
     int timer;
-    int hiTimer;
+    int hiTimer = 99999;
 
     private void Start() {
         if(PlayerPrefs.HasKey("HiTime"+(SceneManager.GetActiveScene().buildIndex-1))){
@@ -33,21 +33,20 @@ public class Finish : MonoBehaviour
    private void OnTriggerEnter(Collider other) {
     if(other.gameObject.name=="Boy"){
         finishSound.Play();
-        UnlockedNewLevel();
-
+        
         if(timer<hiTimer){
             hiTimer = timer;
-            PlayerPrefs.SetInt("HiTime"+(SceneManager.GetActiveScene().buildIndex-1), timer);
+            PlayerPrefs.SetInt("HiTime"+(SceneManager.GetActiveScene().buildIndex-1), hiTimer);
         }
 
         Time.timeScale = 0f;
-        levelNumber.text = (SceneManager.GetActiveScene().buildIndex-1).ToString();
         panel.SetActive(true);
+        levelNumber.text = (SceneManager.GetActiveScene().buildIndex-1).ToString();
         
-
         timerText.text = "Time: " + timer.ToString();
         hiTimerText.text = "Hi-Time: " + hiTimer.ToString();
-        
+
+        UnlockedNewLevel();
 
     }
    }
