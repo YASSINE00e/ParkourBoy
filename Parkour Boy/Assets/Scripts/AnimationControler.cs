@@ -10,6 +10,7 @@ public class AnimationControler : MonoBehaviour
     [SerializeField] WallRunning WallRunning;
     [SerializeField] JumpPad JumpPad;
     [SerializeField] PlayerMovements pm;
+    [SerializeField] Vaulting vaulting;
     Animator animator;
     KeyCode jumpKey = KeyCode.Space;
     // Start is called before the first frame update
@@ -68,8 +69,15 @@ public class AnimationControler : MonoBehaviour
         }else{
             animator.SetBool("WallJump",false);
         }
+/*
+        if(vaulting.vaulting){
+            animator.SetBool("Vault",true);
+            vaulting.vaulting=false;
+        }else{
+            animator.SetBool("Vault",false);
+        }
 
-        /*
+        
         if(JumpPad.bounce){
             animator.SetBool("Bounce",true);
         }else{
