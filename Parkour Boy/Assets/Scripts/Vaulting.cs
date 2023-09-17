@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 
 
-//LICENSE, YOU ARE LEGALLY REQUIRED TO LIKE THE VIDEO IF YOU COPY THIS CODE :) (i promise its legally binding, 50 years prison minimum)
 public class Vaulting : MonoBehaviour
 {
     // Start is called before the first frame update

@@ -124,8 +124,8 @@ public class PlayerMovements : MonoBehaviour
         }
         
         //Mode - sprinting 
-        //else if(grounded && Input.GetKey(sprintKey)){
-        else if(grounded && CrossPlatformInputManager.GetButton("Run")){
+        //else if(grounded && walkBool && Input.GetKey(sprintKey)){
+        else if(grounded && walkBool && CrossPlatformInputManager.GetButton("Run")){
             state = MovementState.sprinting;
             moveSpeed = sprintSpeed;
             animator.SetBool("Running",true);
