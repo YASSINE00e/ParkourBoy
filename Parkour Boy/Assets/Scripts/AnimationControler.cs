@@ -51,6 +51,7 @@ public class AnimationControler : MonoBehaviour
         }else{
             animator.ResetTrigger("Die2");
         }
+        /*
 
         if(WallRunning.wallLeft && pm.wallrunning){
             animator.SetBool("WallRunL",true);
@@ -68,7 +69,7 @@ public class AnimationControler : MonoBehaviour
             animator.SetBool("WallJump",true);
         }else{
             animator.SetBool("WallJump",false);
-        }
+        }*/
 /*
         if(vaulting.vaulting){
             animator.SetBool("Vault",true);

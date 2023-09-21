@@ -25,8 +25,8 @@ public class Vaulting : MonoBehaviour
     }
     private void Vault()
     {
-        //if (Input.GetKeyDown(KeyCode.Space))
-        if(CrossPlatformInputManager.GetButtonDown("Jumpp"))
+        if (Input.GetKeyDown(KeyCode.Space))
+        //if(CrossPlatformInputManager.GetButtonDown("Jumpp"))
         {
             if (Physics.Raycast(orientation.position, orientation.forward, out var firstHit, 1f, vaultLayer))
             {

@@ -58,8 +58,8 @@ public class PlayerMovements : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //Cursor.lockState = CursorLockMode.Locked;
-        //Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         animator=GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody>();
         readyToJump = true;
@@ -70,6 +70,12 @@ public class PlayerMovements : MonoBehaviour
     {
         // ground check
         grounded = Physics.CheckSphere(groundCheck.position, .1f, ground);
+        animator.SetBool("Grounded",grounded);
+        jumpBool = false;
+        animator.SetBool("Jumping",jumpBool);
+        animator.SetBool("Falling",false);
+
+
 
         MyInput();
         SpeedControl();
@@ -80,6 +86,7 @@ public class PlayerMovements : MonoBehaviour
             rb.drag = groudDrag;
         }else{
             rb.drag = 0f;
+            animator.SetBool("Falling",true);
         }
     }
     private void FixedUpdate() {
@@ -88,11 +95,11 @@ public class PlayerMovements : MonoBehaviour
 
     void MyInput(){
     
-        //horizontalInput = Input.GetAxisRaw("Horizontal");
-        //verticalInput = Input.GetAxisRaw("Vertical");
+        horizontalInput = Input.GetAxisRaw("Horizontal");
+        verticalInput = Input.GetAxisRaw("Vertical");
 
-        horizontalInput = Joystick.Horizontal;
-        verticalInput = Joystick.Vertical;
+        //horizontalInput = Joystick.Horizontal;
+        //verticalInput = Joystick.Vertical;
         if(horizontalInput != 0 || verticalInput != 0){
             walkBool = true;
         }else{
@@ -101,8 +108,8 @@ public class PlayerMovements : MonoBehaviour
         animator.SetBool("Walking",walkBool);
         
         // when to jump
-        //if(Input.GetKey(jumpKey) && readyToJump && grounded){
-        if(CrossPlatformInputManager.GetButtonDown("Jumpp") && readyToJump && grounded){
+        if(Input.GetKey(jumpKey) && readyToJump && grounded){
+        //if(CrossPlatformInputManager.GetButtonDown("Jumpp") && readyToJump && grounded){
             readyToJump = false;
             Jump();
             Invoke(nameof(ResetJump),jumpCooldown);
@@ -112,7 +119,7 @@ public class PlayerMovements : MonoBehaviour
         else{
             jumpBool = false;
         }
-        animator.SetBool("Jump",jumpBool);
+        animator.SetBool("Jumping",jumpBool);
     }
 
     void StateHandler(){
@@ -124,8 +131,8 @@ public class PlayerMovements : MonoBehaviour
         }
         
         //Mode - sprinting 
-        //else if(grounded && walkBool && Input.GetKey(sprintKey)){
-        else if(grounded && walkBool && CrossPlatformInputManager.GetButton("Run")){
+        else if(grounded && walkBool && Input.GetKey(sprintKey)){
+        //else if(grounded && walkBool && CrossPlatformInputManager.GetButton("Run")){
             state = MovementState.sprinting;
             moveSpeed = sprintSpeed;
             animator.SetBool("Running",true);

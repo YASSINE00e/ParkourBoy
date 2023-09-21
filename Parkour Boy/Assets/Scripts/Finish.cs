@@ -47,6 +47,9 @@ public class Finish : MonoBehaviour
         hiTimerText.text = "Hi-Time: " + hiTimer.ToString();
 
         UnlockedNewLevel();
+        
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
 
     }
    }

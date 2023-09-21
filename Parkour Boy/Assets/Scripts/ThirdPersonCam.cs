@@ -21,10 +21,10 @@ public class ThirdPersonCam : MonoBehaviour
 
         // roate player object
        
-            //float horizontalInput = Input.GetAxisRaw("Horizontal");
-            //float verticalInput = Input.GetAxisRaw("Vertical");
-            float horizontalInput = Joystick.Horizontal;
-            float verticalInput = Joystick.Vertical;
+            float horizontalInput = Input.GetAxisRaw("Horizontal");
+            float verticalInput = Input.GetAxisRaw("Vertical");
+            //float horizontalInput = Joystick.Horizontal;
+            //float verticalInput = Joystick.Vertical;
             Vector3 inputDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
             if (inputDir != Vector3.zero)
