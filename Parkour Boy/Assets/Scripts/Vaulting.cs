@@ -12,10 +12,12 @@ public class Vaulting : MonoBehaviour
     private float playerHeight = 3.5f;
     private float playerRadius = 0.3f;
     public bool vaulting;
+    Animator animator;
     void Start()
     {
         vaultLayer = LayerMask.NameToLayer("VaultLayer");
         vaultLayer = ~vaultLayer;
+        animator=GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
@@ -31,15 +33,24 @@ public class Vaulting : MonoBehaviour
             if (Physics.Raycast(orientation.position, orientation.forward, out var firstHit, 1f, vaultLayer))
             {
                 print("vaultable in front");
+                
                 if (Physics.Raycast(firstHit.point + (orientation.forward * playerRadius) + (Vector3.up * 0.6f * playerHeight), Vector3.down, out var secondHit, playerHeight))
                 {
                     print("found place to land");
                     StartCoroutine(LerpVault(secondHit.point, 0.5f));
+
+                    }/*
                     vaulting = true;
+                    animator.SetBool("Vault",true);
 
                 }
+                else{
+                    vaulting = false;
+                    animator.SetBool("Vault",false);
+                }*/
             }
         }
+        
 
     }
     IEnumerator LerpVault(Vector3 targetPosition, float duration)
